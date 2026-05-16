@@ -1,7 +1,6 @@
-use std::env;
+use etcetera::{choose_base_strategy, BaseStrategy};
 fn main() {
-    match env::home_dir() {
-        Some(path) => println!("Your home dir is: {}", path.display()),
-        None => println!("Impossible to get yout home dir")
-    }
+    let strategy = choose_base_strategy().unwrap();
+    let data_dir = strategy.data_dir();
+    println!("{}", data_dir.display());
 }
