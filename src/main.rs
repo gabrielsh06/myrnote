@@ -1,6 +1,10 @@
+use std::{fs};
 use etcetera::{choose_base_strategy, BaseStrategy};
+
 fn main() {
     let strategy = choose_base_strategy().unwrap();
-    let data_dir = strategy.data_dir();
-    println!("{}", data_dir.display());
+    let directory = strategy.data_dir().join("myrnote");
+    fs::create_dir_all(&directory).unwrap();
+
+    println!("Directory successfully created in: {}", directory.display());
 }
