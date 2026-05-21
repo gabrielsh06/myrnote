@@ -1,7 +1,8 @@
+use etcetera::{BaseStrategy, choose_base_strategy};
 use std::fs;
 use std::io;
+use std::io::Write;
 use std::path::PathBuf;
-use etcetera::{choose_base_strategy, BaseStrategy};
 
 fn main() {
     let strategy = choose_base_strategy().unwrap();
@@ -12,6 +13,7 @@ fn main() {
     let path = directory.join("myrnote.txt");
 
     read_file(&path);
+    write_file(&path);
 }
 
 fn read_file(path: &PathBuf) {
@@ -22,7 +24,17 @@ fn read_file(path: &PathBuf) {
         .unwrap();
 
     match io::read_to_string(file) {
-        Ok(message) => println!("{}", message), 
+        Ok(message) => println!("{}", message),
         Err(error) => panic!("Error: {}", error),
     };
+}
+
+fn write_file(path: &PathBuf) {
+    let mut file = fs::OpenOptions::new()
+        .write(true)
+        .truncate(false)
+        .open(path)
+        .unwrap();
+    let saludo = "Hola amigo";
+    writeln!(file, "{}", saludo).unwrap();
 }
