@@ -1,4 +1,5 @@
 use etcetera::{BaseStrategy, choose_base_strategy};
+use std::env;
 use std::fs;
 use std::io;
 use std::io::Write;
@@ -11,8 +12,20 @@ fn main() {
     println!("Directory created successfully in: {}", directory.display());
 
     let path = directory.join("myrnote.txt");
-    write_file(&path);
-    read_file(&path);
+
+    let mut args = env::args();
+    args.next();
+
+    if let Some(argument) = args.next() {
+        match argument.as_str() {
+            "--list" => read_file(&path),
+            "--clear" => println!("How do I clean the file?"),
+            "--help" => println!("help message"),
+            _ => println!("help message"),
+        }
+    } else {
+        write_file(&path);
+    }
 }
 
 fn read_file(path: &PathBuf) {
