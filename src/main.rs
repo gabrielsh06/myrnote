@@ -9,7 +9,6 @@ fn main() {
     let strategy = choose_base_strategy().unwrap();
     let directory = strategy.data_dir().join("myrnote");
     fs::create_dir_all(&directory).unwrap();
-    println!("Directory created successfully in: {}", directory.display());
 
     let path = directory.join("myrnote.txt");
 
@@ -25,12 +24,16 @@ fn main() {
     if let Some(argument) = args.next() {
         match argument.as_str() {
             "--list" => read_file(&path),
-            "--clear" => println!("How do I clean the file?"),
+            "--clear" => clear_file(&path),
             _ => println!("{}", default_message),
         }
     } else {
         write_file(&path);
     }
+}
+
+fn clear_file(path: &PathBuf) {
+    fs::write(path, "").unwrap();
 }
 
 fn read_file(path: &PathBuf) {
