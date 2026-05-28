@@ -16,12 +16,17 @@ fn main() {
     let mut args = env::args();
     args.next();
 
+    let help_message = r#"
+        use: myrnote *your notes*
+             myrnote --list
+             myrnote --clear
+        "#;
+
     if let Some(argument) = args.next() {
         match argument.as_str() {
             "--list" => read_file(&path),
             "--clear" => println!("How do I clean the file?"),
-            "--help" => println!("help message"),
-            _ => println!("help message"),
+            _ => println!("{}", help_message),
         }
     } else {
         write_file(&path);
