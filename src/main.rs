@@ -11,14 +11,15 @@ fn main() {
     println!("Directory created successfully in: {}", directory.display());
 
     let path = directory.join("myrnote.txt");
-
-    read_file(&path);
     write_file(&path);
+    read_file(&path);
 }
 
 fn read_file(path: &PathBuf) {
     let file = fs::OpenOptions::new()
         .read(true)
+        .write(true)
+        .create(true)
         .truncate(false)
         .open(path)
         .unwrap();
@@ -32,9 +33,13 @@ fn read_file(path: &PathBuf) {
 fn write_file(path: &PathBuf) {
     let mut file = fs::OpenOptions::new()
         .write(true)
-        .truncate(false)
+        .append(true)
+        .create(true)
         .open(path)
         .unwrap();
-    let saludo = "Hola amigo";
-    writeln!(file, "{}", saludo).unwrap();
+
+    let mut content = String::new();
+    io::stdin().read_line(&mut content).expect("msg");
+
+    writeln!(file, "{}", content.trim()).unwrap();
 }
