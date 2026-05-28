@@ -16,7 +16,7 @@ fn main() {
     let mut args = env::args();
     args.next();
 
-    let help_message = r#"
+    let default_message = r#"
         use: myrnote *your notes*
              myrnote --list
              myrnote --clear
@@ -26,7 +26,7 @@ fn main() {
         match argument.as_str() {
             "--list" => read_file(&path),
             "--clear" => println!("How do I clean the file?"),
-            _ => println!("{}", help_message),
+            _ => println!("{}", default_message),
         }
     } else {
         write_file(&path);
