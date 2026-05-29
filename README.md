@@ -3,6 +3,8 @@ Myrnote is a CLI for annotating and reading text.
 
 ## Installation
 
+To install Myrnote, you need to have [Rust](https://rust-lang.org/tools/install/) installed on your system.
+
 ```bash
 # Clone the repository
 git clone https://github.com/gabrielsh06/myrnote.git
